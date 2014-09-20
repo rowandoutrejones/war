@@ -1,6 +1,6 @@
 $(document).ready(function() {
 
-	//what does this do?
+	//It changes 11, 12 & 13 cards and changes them to strings. Calling them by their proper names.
 	function convert_value_to_string(value) {
 		if (value > 10) {
 			switch (value) {
@@ -18,7 +18,8 @@ $(document).ready(function() {
 		return value.toString();
 	}
 
-	//what does this do?
+	//This loops through the deck. Naming 1-13 a new suit name until 'hearts', 'diamonds', 'spades' and 'clubs' all have values from 1-13.
+
 	var deck = [];
 	var suits = ['hearts', 'diamonds', 'spades', 'clubs'];
 	for (var i = 0; i<suits.length; i++) {
@@ -28,7 +29,7 @@ $(document).ready(function() {
 		}
 	}
 	
-	//what does this do?
+	//it rearranges the deck array.
 	var shuffle = function(array) { 
 		var copy = [];
 		var n = array.length; 
@@ -45,11 +46,21 @@ $(document).ready(function() {
 	
 	var cards_player_1 = [];
 	var cards_player_2 = [];
-	//divide out the cards into the two arrays
+	var deal = function(deck) {
+		cards_player_1 = deck.slice(0, deck.length/2);
+		cards_player_2 = deck.slice(deck.length/2);
+	}
 	
 	
 	//create a function (algorithm) called "war" that takes two cards as parameters, compares them and returns a winner. A tie should return false.
 	function war() {
+		var card_1 = cards_player_1[0].number;
+		var card_2 = cards_player_2[0].number;
+		if(card_1 > card_2) {
+			return card_1;
+		} else if (card_2 > card_1) {
+			return card_2;
+		}
 	}
 	
 	
@@ -57,6 +68,12 @@ $(document).ready(function() {
 		//compare the cards
 		//give the winner both cards (at end of deck)
 	function play() {
+		war();
+		if (war() === card_1) {
+			cards_player_1.push(cards_player_1[0], cards_player_2[0]);
+		} else if (war() === card_2) {
+			cards_player_2.push(cards_player_1[0], cards_player_2[0]);
+		}             
 		
 		//this function (defined below) will continue to the next turn
 		advance();
